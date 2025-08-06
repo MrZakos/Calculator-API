@@ -52,6 +52,10 @@ The project includes comprehensive testing across multiple layers:
 
 The project includes a complete Postman collection for interactive API testing located in `/postman/Calculator API.postman_collection.json`.
 
+### Postman + Redis demo
+
+[![Postman + Redis Demo](https://img.youtube.com/vi/n5V-YkyUEtA/0.jpg)](https://youtu.be/n5V-YkyUEtA)
+
 ### Unit Tests
 - **MathService Tests** - Core mathematical operation logic
 - **AuthenticationService Tests** - Token generation and validation

@@ -37,106 +37,6 @@ This project demonstrates a modern, scalable calculator API that includes:
     - `Authorization: Bearer {token}`
     - `X-ArithmeticOp-ID: {operation_id}`
 
-## 🧪 Testing
-
-The project includes comprehensive testing across multiple layers:
-
-### How to Run Tests
-
-To run all tests:
-```bash
-cd src/IO.Swagger.Tests
-dotnet test
-```
-
-To run specific test categories:
-```bash
-# Unit tests only
-dotnet test --filter Category=Unit
-
-# Integration tests only
-dotnet test --filter Category=Integration
-
-# Run tests with detailed output
-dotnet test --verbosity normal
-```
-
-### Running Specific Test Methods by Name
-
-You can run individual test methods using the `--filter` parameter with the method name:
-
-```bash
-# Run a specific test method
-dotnet test --filter "PerformCalculationAsync_AddOperation_ReturnsCorrectResult"
-
-# Run all tests in a specific test class
-dotnet test --filter "MathServiceTests"
-
-# Run specific integration test method
-dotnet test --filter "MathApi_DivideByZero_ReturnsErrorResponse"
-
-# Run tests containing specific text in method name
-dotnet test --filter "Name~Add"
-
-# Run multiple specific methods using OR operator
-dotnet test --filter "Name=PerformCalculationAsync_AddOperation_ReturnsCorrectResult|Name=MathApi_DivideByZero_ReturnsErrorResponse"
-
-# Run tests by namespace
-dotnet test --filter "FullyQualifiedName~IO.Swagger.Tests.Unit"
-
-# Run tests by class and method combination
-dotnet test --filter "FullyQualifiedName~MathServiceTests&Name~Add"
-```
-
-### Advanced Test Filtering Examples
-
-```bash
-# Run tests by trait/category (if defined)
-dotnet test --filter "TestCategory=Unit"
-
-# Run tests excluding specific ones
-dotnet test --filter "Name!=SlowTest"
-
-# Run tests with priority (if Priority attribute is used)
-dotnet test --filter "Priority=1"
-
-# List all available tests without running them
-dotnet test --list-tests
-```
-
-### API Testing with Postman
-
-![Postman API Testing](images/Postman01.jpg)
-
-<!-- ![Postman API Testing](images/postman.gif) -->
-<!-- Postman GIF temporarily removed due to file size - will be added back with Git LFS -->
-
-The project includes a complete Postman collection for interactive API testing located in `/postman/Calculator API.postman_collection.json`.
-
-### Postman + Redis demo
-
-<a href="https://youtu.be/n5V-YkyUEtA" target="_blank">
-  <img src="https://img.youtube.com/vi/n5V-YkyUEtA/0.jpg" alt="Postman + Redis Demo" />
-</a>
-
-### Unit Tests
-- **MathService Tests** - Core mathematical operation logic
-- **AuthenticationService Tests** - Token generation and validation
-- **RedisService Tests** - Direct Redis integration without mocks
-
-### Integration Tests  
-- **MathAPI Integration Tests** - End-to-end API testing with authentication
-- **Redis Integration Tests** - Real Redis caching behavior
-- **Authentication Integration Tests** - Complete auth workflow testing
-- **Comprehensive Integration Tests** - Full workflow including Kafka events
-- **MockoonIntegrationTests.cs** - External service mocking and API endpoint testing
-
-### Test Features
-- **Real Service Dependencies** - Tests use actual Redis and application host
-- **Parameterized Tests** - Theory-based tests with multiple scenarios
-- **Error Handling** - Comprehensive error scenario coverage
-- **Performance Testing** - Concurrent operation testing
-
 ## 📊 Architecture Overview
 
 ![Aspire Dashboard](images/AspireDashboard01.jpg)
@@ -181,6 +81,84 @@ This will start all services including API (IO.Swagger), Redis, Redis Insight, K
 ├── mockoon/                     # API mocking configuration
 ├── postman/                     # Postman collection for API testing
 └── images/                      # Documentation images
+```
+
+## 🏗️ Aspire Orchestration Configuration
+
+The `IO.Swagger.AppHost/Program.cs` file configures the entire application stack using .NET Aspire:
+
+```csharp
+var builder = DistributedApplication.CreateBuilder(args);
+
+// Enables the Docker Compose publisher
+builder.AddDockerComposeEnvironment("calculator-docker-compose-app") 
+	    .WithDashboard(dashboard => dashboard.WithHostPort(8080));; 
+
+// Add Redis with RedisInsight
+var redis = builder.AddRedis("redis")
+                   .WithRedisInsight();
+
+// Add Kafka with UI
+var kafka = builder.AddKafka("kafka")
+                   .WithKafkaUI();
+
+// Add Mockoon CLI as Docker container
+var mockoon = builder.AddContainer("mockoon", "mockoon/cli")
+                     .WithHttpEndpoint(targetPort: 3000, name: "mockoon")
+                     .WithBindMount("../../mockoon", "/data")
+                     .WithArgs("--data", "/data/CalculatorMockoon.json", "--port", "3000")
+                     .WithHttpEndpoint(port: 3000, targetPort: 3000);
+
+// Add the API project with references to the services
+var api = builder.AddProject<Projects.IO_Swagger>("io-swagger")
+                 .WithEndpoint(scheme: "http", port: 8081, name: "io-swagger", isExternal: true)
+                 .WithReference(redis)
+                 .WithReference(kafka) 
+                 .WaitFor(redis)
+                 .WaitFor(kafka) 
+                 .WaitFor(mockoon);
+
+try
+{
+    builder.Build().Run();
+}
+catch (TaskCanceledException)
+{
+    // Expected during testing scenarios when the application is shut down
+}
+```
+
+### Key Orchestration Features
+- **Docker Compose Integration** - Enables publishing to Docker Compose with custom dashboard port (8080)
+- **Redis Setup** - Includes RedisInsight for visual database management
+- **Kafka Configuration** - Comes with Kafka UI for message monitoring
+- **Mockoon Integration** - Containerized API mocking with custom JSON configuration
+- **Service Dependencies** - API waits for all services to be ready before starting
+- **External API Access** - API exposed on port 8081 for external connections
+- **Error Handling** - Graceful handling of TaskCanceledException during testing
+
+## 📁 Configuration
+
+The application supports configuration through `appsettings.json` (IO.Swagger):
+
+```json
+{
+  "Jwt": {
+    "Key": "YourSecretKey",
+    "Issuer": "Calculator.API",
+    "Audience": "Calculator.Client",
+    "ExpiryInMinutes": 60
+  },
+  "Cache": {
+    "MathTTLSeconds": 30
+  },
+  "Kafka": {
+    "Topics": {
+      "CalculationStarted": "calculation-started",
+      "CalculationCompleted": "calculation-completed"
+    }
+  }
+}
 ```
 
 ## 🔄 Event-Driven Architecture
@@ -301,29 +279,103 @@ This creates production-ready Docker configurations including:
 - Health checks and monitoring
 - Volume mounts for persistent data
 
-## 📝 Configuration
+## 🧪 Testing
 
-The application supports configuration through `appsettings.json` (IO.Swagger):
+The project includes comprehensive testing across multiple layers:
 
-```json
-{
-  "Jwt": {
-    "Key": "YourSecretKey",
-    "Issuer": "Calculator.API",
-    "Audience": "Calculator.Client",
-    "ExpiryInMinutes": 60
-  },
-  "Cache": {
-    "MathTTLSeconds": 30
-  },
-  "Kafka": {
-    "Topics": {
-      "CalculationStarted": "calculation-started",
-      "CalculationCompleted": "calculation-completed"
-    }
-  }
-}
+### How to Run Tests
+
+To run all tests:
+```bash
+cd src/IO.Swagger.Tests
+dotnet test
 ```
+
+To run specific test categories:
+```bash
+# Unit tests only
+dotnet test --filter Category=Unit
+
+# Integration tests only
+dotnet test --filter Category=Integration
+
+# Run tests with detailed output
+dotnet test --verbosity normal
+```
+
+### Running Specific Test Methods by Name
+
+You can run individual test methods using the `--filter` parameter with the method name:
+
+```bash
+# Run a specific test method
+dotnet test --filter "PerformCalculationAsync_AddOperation_ReturnsCorrectResult"
+
+# Run all tests in a specific test class
+dotnet test --filter "MathServiceTests"
+
+# Run specific integration test method
+dotnet test --filter "MathApi_DivideByZero_ReturnsErrorResponse"
+
+# Run tests containing specific text in method name
+dotnet test --filter "Name~Add"
+
+# Run multiple specific methods using OR operator
+dotnet test --filter "Name=PerformCalculationAsync_AddOperation_ReturnsCorrectResult|Name=MathApi_DivideByZero_ReturnsErrorResponse"
+
+# Run tests by namespace
+dotnet test --filter "FullyQualifiedName~IO.Swagger.Tests.Unit"
+
+# Run tests by class and method combination
+dotnet test --filter "FullyQualifiedName~MathServiceTests&Name~Add"
+```
+
+### Advanced Test Filtering Examples
+
+```bash
+# Run tests by trait/category (if defined)
+dotnet test --filter "TestCategory=Unit"
+
+# Run tests excluding specific ones
+dotnet test --filter "Name!=SlowTest"
+
+# Run tests with priority (if Priority attribute is used)
+dotnet test --filter "Priority=1"
+
+# List all available tests without running them
+dotnet test --list-tests
+```
+
+### API Testing with Postman
+
+![Postman API Testing](images/Postman01.jpg)
+
+<!-- ![Postman API Testing](images/postman.gif) -->
+<!-- Postman GIF temporarily removed due to file size - will be added back with Git LFS -->
+
+The project includes a complete Postman collection for interactive API testing located in `/postman/Calculator API.postman_collection.json`.
+
+### Postman + Redis demo
+
+[![Postman + Redis Demo](https://img.youtube.com/vi/n5V-YkyUEtA/0.jpg)](https://youtu.be/n5V-YkyUEtA)
+
+### Unit Tests
+- **MathService Tests** - Core mathematical operation logic
+- **AuthenticationService Tests** - Token generation and validation
+- **RedisService Tests** - Direct Redis integration without mocks
+
+### Integration Tests  
+- **MathAPI Integration Tests** - End-to-end API testing with authentication
+- **Redis Integration Tests** - Real Redis caching behavior
+- **Authentication Integration Tests** - Complete auth workflow testing
+- **Comprehensive Integration Tests** - Full workflow including Kafka events
+- **MockoonIntegrationTests.cs** - External service mocking and API endpoint testing
+
+### Test Features
+- **Real Service Dependencies** - Tests use actual Redis and application host
+- **Parameterized Tests** - Theory-based tests with multiple scenarios
+- **Error Handling** - Comprehensive error scenario coverage
+- **Performance Testing** - Concurrent operation testing
 
 ## 📄 License
 

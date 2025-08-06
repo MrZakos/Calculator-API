@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <Description>IO.Swagger</Description>
+    <Copyright>IO.Swagger</Copyright>
+    <TargetFramework>net9.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>IO.Swagger</AssemblyName>
+    <PackageId>IO.Swagger</PackageId>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Aspire.Confluent.Kafka" Version="9.4.0" />
+    <PackageReference Include="Aspire.StackExchange.Redis" Version="9.4.0" />
+    <PackageReference Include="Aspire.StackExchange.Redis.OutputCaching" Version="9.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.8" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.13.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.13.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="9.0.3"/>
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.3"/>
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="9.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IO.Swagger.Services\IO.Swagger.Services.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+</Project>

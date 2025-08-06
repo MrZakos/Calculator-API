@@ -1,0 +1,387 @@
+{
+	"info": {
+		"_postman_id": "aecf0ae7-c60d-44b4-b76b-acc54b32c07c",
+		"name": "Calculator API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3378371"
+	},
+	"item": [
+		{
+			"name": "Token Generator",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMTIzIiwianRpIjoiZDA5ZTg0NjQtNDZkMy00MDZhLWE0MDAtNDBkYjc2YzdmYjdiIiwiaWF0IjoxNzU0NDg3NjUyLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlcjEyMyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoidXNlcjEyMyIsImV4cCI6MTc1NDQ4NzcxMiwiaXNzIjoiSU8uU3dhZ2dlci5BUEkiLCJhdWQiOiJJTy5Td2FnZ2VyLkNsaWVudCJ9.Wbl9mL2vWYqkHhi9sIdaPCce8ywX15ZfVpUmuZXUB-k",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"user123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/token/generate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"token",
+						"generate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-ArithmeticOp-ID",
+						"value": "1",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"x\": 3,\r\n  \"y\": 5,\r\n  \"operation\": \"add\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/math",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"math"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "subtract",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-ArithmeticOp-ID",
+						"value": "2",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"x\": 100,\r\n  \"y\": 5,\r\n  \"operation\": \"subtract\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/math",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"math"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "multiply",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-ArithmeticOp-ID",
+						"value": "3",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"x\": 4,\r\n  \"y\": 5,\r\n  \"operation\": \"multiply\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/math",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"math"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "divide",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-ArithmeticOp-ID",
+						"value": "4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"x\": 25,\r\n  \"y\": 5,\r\n  \"operation\": \"divide\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/math",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"math"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "divide by 0",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-ArithmeticOp-ID",
+						"value": "4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"x\": 22,\r\n  \"y\": 0,\r\n  \"operation\": \"divide\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/math",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"math"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mockoon add 5 3",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/meta/add/5/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"meta",
+						"add",
+						"5",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mockoon subtract 100 5",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/meta/add/5/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"meta",
+						"add",
+						"5",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mockoon multiply 4 5",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/meta/multiply/4/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"meta",
+						"multiply",
+						"4",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mockoon divide 25 5",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/meta/divide/25/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"meta",
+						"divide",
+						"25",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mockoon divide by 0",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/meta/divide/25/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"meta",
+						"divide",
+						"25",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMTIzIiwianRpIjoiZTlmZTU5MzItYmI3Mi00YzA5LTg2YzYtODU5M2JjMTU3YzRkIiwiaWF0IjoxNzU0NDg4NjI2LCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidXNlcjEyMyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoidXNlcjEyMyIsImV4cCI6MTc1NDQ4ODY4NiwiaXNzIjoiSU8uU3dhZ2dlci5BUEkiLCJhdWQiOiJJTy5Td2FnZ2VyLkNsaWVudCJ9.k0_nDNHm-HdeOSdxel0EtrwAQom8CQJ9FslPx_MlEXA",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,126 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Calculator API",
+    "description" : "API for performing arithmetic operations",
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "security" : [ {
+    "bearerAuth" : [ ]
+  } ],
+  "paths" : {
+    "/api/math" : {
+      "post" : {
+        "summary" : "Perform arithmetic operation on two numbers",
+        "operationId" : "calculate",
+        "parameters" : [ {
+          "name" : "X-ArithmeticOp-ID",
+          "in" : "header",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/MathRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful calculation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MathResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized",
+            "content" : { }
+          },
+          "500" : {
+            "description" : "Internal Server Error",
+            "content" : { }
+          }
+        },
+        "security" : [ {
+          "bearerAuth" : [ ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "MathRequest" : {
+        "required" : [ "operation", "x", "y" ],
+        "type" : "object",
+        "properties" : {
+          "x" : {
+            "type" : "number"
+          },
+          "y" : {
+            "type" : "number"
+          },
+          "operation" : {
+            "$ref" : "#/components/schemas/MathOperationType"
+          }
+        }
+      },
+      "MathResponse" : {
+        "type" : "object",
+        "properties" : {
+          "result" : {
+            "type" : "number"
+          }
+        },
+        "example" : {
+          "result" : 0.8008281904610115
+        }
+      },
+      "BaseResponse" : {
+        "type" : "object",
+        "properties" : {
+          "error" : {
+            "type" : "string"
+          }
+        }
+      },
+      "MathOperationType" : {
+        "type" : "string",
+        "enum" : [ "add", "subtract", "multiply", "divide" ]
+      }
+    },
+    "securitySchemes" : {
+      "bearerAuth" : {
+        "type" : "http",
+        "description" : "JWT Bearer Authentication using HS256 algorithm",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT",
+        "x-jwt-signing-algorithms" : [ "HS256" ]
+      }
+    }
+  }
+}

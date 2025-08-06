@@ -21,7 +21,7 @@ var mockoon = builder.AddContainer("mockoon", "mockoon/cli")
 
 // Add the API project with references to the services
 var api = builder.AddProject<Projects.IO_Swagger>("io-swagger")
-				 .WithEndpoint(scheme: "http", port: 8081, name: "io-swagger", isExternal: true)
+				 .WithExternalHttpEndpoints()
                  .WithReference(redis)
                  .WithReference(kafka)
 				 .WaitFor(redis)

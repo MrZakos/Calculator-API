@@ -1,5 +1,8 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
+// Enables the Docker Compose publisher
+builder.AddDockerComposeEnvironment("calculator-docker-compose-app"); 
+
 // Add Redis with RedisInsight
 var redis = builder.AddRedis("redis")
                    .WithRedisInsight();

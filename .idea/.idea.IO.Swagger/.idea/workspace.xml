@@ -15,6 +15,13 @@
     <list default="true" id="7d6a47fe-84da-416b-8d02-ada2a869ac99" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.IO.Swagger/.idea/copilotDiffState.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IO.Swagger/.idea/copilotDiffState.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.IO.Swagger/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IO.Swagger/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IO.Swagger.AppHost/IO.Swagger.AppHost.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/IO.Swagger.AppHost/IO.Swagger.AppHost.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IO.Swagger.AppHost/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/IO.Swagger.AppHost/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IO.Swagger.Tests/Integration/MockoonIntegrationTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/IO.Swagger.Tests/Integration/MockoonIntegrationTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IO.Swagger/IO.Swagger.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/IO.Swagger/IO.Swagger.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,12 +40,12 @@
     &quot;assignee&quot;: &quot;MrZakos&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/MrZakos/Calculator-API.git",
-    "accountId": "c35fdc70-3b6e-46f9-86c7-9bc1df0dc2f1"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MrZakos/Calculator-API.git&quot;,
+    &quot;accountId&quot;: &quot;c35fdc70-3b6e-46f9-86c7-9bc1df0dc2f1&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/IO.Swagger.AppHost/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/IO.Swagger.Models/Token/TokenRequest.cs" root0="FORCE_HIGHLIGHTING" />
@@ -92,6 +99,7 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Aspire Host.IO.Swagger.AppHost.executor": "Debug",
     "Docker.IO.Swagger/Dockerfile.executor": "Debug",
+    "Docker.docker-compose.yaml: Compose Deployment.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
@@ -112,7 +120,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Aspire Host.IO.Swagger.AppHost">
+  <component name="RunManager" selected="Docker.docker-compose.yaml: Compose Deployment">
     <configuration name="IO.Swagger.AppHost" type="AspireHostConfiguration" factoryName="Aspire Host" activateToolWindowBeforeRun="false" temporary="true">
       <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/src/IO.Swagger.AppHost/IO.Swagger.AppHost.csproj" />
       <option name="PROJECT_TFM" value="net9.0" />
@@ -194,9 +202,22 @@
       <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
       <method v="2" />
     </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
       <deployment type="dockerfile">
         <settings />
+      </deployment>
+      <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yaml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose.yaml" />
+        </settings>
       </deployment>
       <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
       <method v="2" />
@@ -207,9 +228,11 @@
       <item itemvalue=".NET Launch Settings Profile.IO.Swagger: web" />
       <item itemvalue="Aspire Host.IO.Swagger.AppHost" />
       <item itemvalue="Docker.IO.Swagger/Dockerfile" />
+      <item itemvalue="Docker.docker-compose.yaml: Compose Deployment" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.docker-compose.yaml: Compose Deployment" />
         <item itemvalue="Aspire Host.IO.Swagger.AppHost" />
       </list>
     </recent_temporary>
@@ -233,7 +256,9 @@
       <workItem from="1754352306641" duration="412000" />
       <workItem from="1754352764386" duration="928000" />
       <workItem from="1754378736895" duration="25173000" />
-      <workItem from="1754494405266" duration="5959000" />
+      <workItem from="1754494405266" duration="6972000" />
+      <workItem from="1754503594717" duration="178000" />
+      <workItem from="1754503819228" duration="1134000" />
     </task>
     <task id="LOCAL-00001" summary="wip">
       <option name="closed" value="true" />

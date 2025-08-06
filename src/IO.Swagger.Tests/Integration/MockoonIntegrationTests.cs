@@ -19,17 +19,25 @@ public class MockoonIntegrationTests
             clientBuilder.AddStandardResilienceHandler();
         });
 
-        await using var app = await builder.BuildAsync();
-        await app.StartAsync();
+        try
+        {
+            await using var app = await builder.BuildAsync();
+            await app.StartAsync();
 
-        // Act
-        var httpClient = app.CreateHttpClient("mockoon");
-        var response = await httpClient.GetAsync("/api/meta/add/5/3");
+            // Act - Call Mockoon endpoint using dynamic configuration
+            var httpClient = app.CreateHttpClient("mockoon");
+            var response = await httpClient.GetAsync("/api/meta/add/5/3");
 
-        // Assert
-        Assert.True(response.IsSuccessStatusCode, "Mockoon endpoint should respond successfully");
-        var content = await response.Content.ReadAsStringAsync();
-        Assert.NotNull(content);
-        Assert.NotEmpty(content);
+            // Assert
+            Assert.True(response.IsSuccessStatusCode, "Mockoon endpoint should respond successfully");
+            var content = await response.Content.ReadAsStringAsync();
+            Assert.NotNull(content);
+            Assert.NotEmpty(content);
+        }
+        catch (TaskCanceledException ex)
+        {
+            // Handle TaskCanceledException that can occur during testing
+            throw new InvalidOperationException($"Test was cancelled, likely due to timeout or service startup issues: {ex.Message}", ex);
+        }
     }
 }

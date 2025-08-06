@@ -48,7 +48,7 @@ The application uses .NET Aspire for orchestration, providing:
 
 ![Aspire Dashboard - Services](images/AspireDashboard02.jpg)
 
-### Aspire Demonstration
+### Aspire Demonstration (YouTube)
 
 [![Aspire Demonstration](https://img.youtube.com/vi/YHJym4HUYAE/0.jpg)](https://youtu.be/YHJym4HUYAE)
 
@@ -355,9 +355,9 @@ dotnet test --list-tests
 
 The project includes a complete Postman collection for interactive API testing located in `/postman/Calculator API.postman_collection.json`.
 
-### Postman + Redis demo
+### Postman & Redis demo (YouTube)
 
-[![Postman + Redis Demo](https://img.youtube.com/vi/n5V-YkyUEtA/0.jpg)](https://youtu.be/n5V-YkyUEtA)
+[![Postman & Redis Demo](https://img.youtube.com/vi/n5V-YkyUEtA/0.jpg)](https://youtu.be/n5V-YkyUEtA)
 
 ### Unit Tests
 - **MathService Tests** - Core mathematical operation logic

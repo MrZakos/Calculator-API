@@ -92,7 +92,7 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 // Enables the Docker Compose publisher
 builder.AddDockerComposeEnvironment("calculator-docker-compose-app") 
-	    .WithDashboard(dashboard => dashboard.WithHostPort(8080));; 
+       .WithDashboard(dashboard => dashboard.WithHostPort(8080)); 
 
 // Add Redis with RedisInsight
 var redis = builder.AddRedis("redis")
@@ -111,7 +111,7 @@ var mockoon = builder.AddContainer("mockoon", "mockoon/cli")
 
 // Add the API project with references to the services
 var api = builder.AddProject<Projects.IO_Swagger>("io-swagger")
-                 .WithEndpoint(scheme: "http", port: 8081, name: "io-swagger", isExternal: true)
+                 .WithExternalHttpEndpoints()
                  .WithReference(redis)
                  .WithReference(kafka) 
                  .WaitFor(redis)

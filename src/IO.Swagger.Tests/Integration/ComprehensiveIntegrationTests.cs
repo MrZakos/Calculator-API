@@ -224,13 +224,8 @@ public class ComprehensiveIntegrationTests {
 	[Theory]
 	[InlineData(MathOperationType.Add,100.0,200.0,300.0)]
 	[InlineData(MathOperationType.Subtract,100.0,30.0,70.0)]
-	[InlineData(MathOperationType.Multiply,12.0,
-				8.0,
-				96.0)]
-	[InlineData(MathOperationType.Divide,
-				144.0,
-				12.0,
-				12.0)]
+	[InlineData(MathOperationType.Multiply,12.0,8.0,96.0)]
+	[InlineData(MathOperationType.Divide,144.0,12.0,12.0)]
 	public async Task AuthenticatedMathOperations_AllOperationTypes_ReturnCorrectResults(MathOperationType operation,
 																						 double x,
 																						 double y,

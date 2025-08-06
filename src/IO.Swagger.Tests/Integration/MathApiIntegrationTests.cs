@@ -109,22 +109,10 @@ public class MathApiIntegrationTests {
 	}
 
 	[Theory]
-	[InlineData(MathOperationType.Add,
-				10.0,
-				5.0,
-				15.0)]
-	[InlineData(MathOperationType.Subtract,
-				10.0,
-				5.0,
-				5.0)]
-	[InlineData(MathOperationType.Multiply,
-				10.0,
-				5.0,
-				50.0)]
-	[InlineData(MathOperationType.Divide,
-				10.0,
-				5.0,
-				2.0)]
+	[InlineData(MathOperationType.Add,10.0,5.0,15.0)]
+	[InlineData(MathOperationType.Subtract,10.0,5.0,5.0)]
+	[InlineData(MathOperationType.Multiply,10.0,5.0,50.0)]
+	[InlineData(MathOperationType.Divide,10.0,5.0,2.0)]
 	public async Task MathApi_AllOperations_ReturnExpectedResults(MathOperationType operation,
 																  double x,
 																  double y,

@@ -4,19 +4,19 @@ using Microsoft.Extensions.Logging;
 
 namespace IO.Swagger.Services.Math {
 	public interface IMathService {
-		Task<MathResponse> PerformCalculationAsync(MathRequest request,string operationId);
+		Task<MathResponse> CalculateAsync(MathRequest request,string operationId);
 	}
 
 	public class MathService(ILogger<MathService> logger) : IMathService {
 
-		public Task<MathResponse> PerformCalculationAsync(MathRequest request,string operationId) {
+		public Task<MathResponse> CalculateAsync(MathRequest request,string operationId) {
 			logger.LogInformation("Starting math calculation for operation ID: {OperationId}, Operation: {Operation}, X: {X}, Y: {Y}",
 								  operationId,
 								  request.Operation,
 								  request.X,
 								  request.Y);
 			try {
-				double result = 0;
+				double result;
 
 				// Perform the mathematical operation
 				switch (request.Operation) {

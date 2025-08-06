@@ -27,7 +27,7 @@ namespace IO.Swagger.Controllers {
 	/// </summary>
 	[ApiController]
 	[Authorize] // Require JWT Bearer authentication for all endpoints
-	public sealed class DefaultApiController(ICalculatorWorkflowService calculatorWorkflowService,ILogger<DefaultApiController> logger) : ControllerBase {
+	public sealed class DefaultApiController(ICalculatorBusinessLogicService calculatorBusinessLogicService,ILogger<DefaultApiController> logger) : ControllerBase {
 
 		/// <summary>
 		/// Perform mathematical operations
@@ -54,7 +54,7 @@ namespace IO.Swagger.Controllers {
 					logger.LogWarning("Invalid model state for operation ID: {OperationId}. ModelState: {@ModelState}",xArithmeticOpId,ModelState);
 					return BadRequest(ModelState);
 				}
-				var result = await calculatorWorkflowService.ExecuteCalculationWorkflowAsync(request,xArithmeticOpId);
+				var result = await calculatorBusinessLogicService.ExecuteCalculationWorkflowAsync(request,xArithmeticOpId);
 				if (result.Success == true) {
 					logger.LogInformation("MathPost completed successfully for operation ID: {OperationId}",xArithmeticOpId);
 					return Ok(result);

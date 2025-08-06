@@ -19,13 +19,12 @@ public class KafkaProducerService : IKafkaProducerService,IDisposable {
 
 	public KafkaProducerService(IConfiguration configuration,ILogger<KafkaProducerService> logger) {
 		_logger = logger;
-		return;
 		_calculationStartedTopic = configuration.GetValue<string>("Kafka:Topics:CalculationStarted") ?? "calculation-started";
 		_calculationCompletedTopic = configuration.GetValue<string>("Kafka:Topics:CalculationCompleted") ?? "calculation-completed";
 		var config = new ProducerConfig {
 			BootstrapServers = configuration.GetConnectionString("kafka") ?? "localhost:9092",
 			ClientId = "io-swagger-producer",
-			Acks = Acks.Leader,
+			Acks = Acks.All, // Required when EnableIdempotence is true
 			EnableIdempotence = true,
 			MessageTimeoutMs = 30000,
 			RequestTimeoutMs = 30000,
@@ -41,7 +40,6 @@ public class KafkaProducerService : IKafkaProducerService,IDisposable {
 	}
 
 	public async Task SendCalculationStartedAsync(CalculationStartedEvent calculationEvent) {
-		return;
 		try {
 			var json = JsonSerializer.Serialize(calculationEvent);
 			var message = new Message<string,string> {
@@ -66,7 +64,6 @@ public class KafkaProducerService : IKafkaProducerService,IDisposable {
 	}
 
 	public async Task SendCalculationCompletedAsync(CalculationCompletedEvent calculationEvent) {
-		return;
 		try {
 			var json = JsonSerializer.Serialize(calculationEvent);
 			var message = new Message<string,string> {

@@ -36,11 +36,6 @@ This project demonstrates a modern, scalable calculator API that includes:
     - `Authorization: Bearer {token}`
     - `X-ArithmeticOp-ID: {operation_id}`
 
-### Health & Documentation
-- `GET /health` - Health check endpoint
-- `GET /swagger` - Swagger UI documentation
-- `GET /swagger/1.0.0/swagger.json` - OpenAPI specification
-
 ## 🧪 Testing
 
 The project includes comprehensive testing across multiple layers:
@@ -89,8 +84,6 @@ The application uses .NET Aspire for orchestration, providing:
 ### Prerequisites
 - .NET 9 SDK
 - Docker Desktop
-- Redis (via Docker or local installation)
-- Apache Kafka (via Docker or local installation)
 
 ### Quick Start
 
@@ -99,7 +92,7 @@ cd src/IO.Swagger.AppHost
 dotnet run
 ```
 
-This will start all services including Redis, Kafka, and the API with the Aspire dashboard available at `https://localhost:17123`.
+This will start all services including API (IO.Swagger), Redis, Redis Insight, Kafka, Kafka UI, Mockoon with the Aspire dashboard available at `https://localhost:17123`.
 
 ## 📁 Project Structure
 
@@ -125,17 +118,17 @@ Events include detailed metadata for analytics, monitoring, and audit trails.
 
 ## 🚀 Process
 
-- Create API using swaggerhub with HaloAI feature and download as .NET Core 3/5 project
-- Upgrade to .NET 9 
-- Add Aspire to allow for local orchestration with ease of use for Redis, Kafka, and Mockoon docker integration
-- Folder re structure
-- Add JWT authentication + TokenExpirationMiddleware
+- Created API using swaggerhub with HaloAI and download as .NET Core 3/5 project
+- Upgrade to .NET 9 (latest versions of libraries)
+- Add Aspire to allow for local orchestration with ease of use for Redis, Kafka, and Mockoon docker integration, allow there are no connections strings in appsettings
+- Solutions structure refactored to separate concerns
+- Set JWT authentication + TokenExpirationMiddleware
 - Refactor to use System.Text.Json
-- 
+- Used GitHub Copilot (Claude Sonnet 4) to refactor code, add tests and documentation (and whatever else it did)
 
 ## 📝 Configuration
 
-The application supports configuration through `appsettings.json`:
+The application supports configuration through `appsettings.json` (IO.Swagger):
 
 ```json
 {
@@ -156,13 +149,6 @@ The application supports configuration through `appsettings.json`:
   }
 }
 ```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Run tests: `dotnet test`
-4. Submit a pull request
 
 ## 📄 License
 

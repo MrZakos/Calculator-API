@@ -33,7 +33,7 @@ public class MathServiceTests {
 		var operationId = "add_test_001";
 
 		// Act
-		var result = await _mathService.PerformCalculationAsync(request,operationId);
+		var result = await _mathService.CalculateAsync(request,operationId);
 
 		// Assert
 		Assert.NotNull(result);
@@ -60,7 +60,7 @@ public class MathServiceTests {
 		var operationId = "subtract_test_001";
 
 		// Act
-		var result = await _mathService.PerformCalculationAsync(request,operationId);
+		var result = await _mathService.CalculateAsync(request,operationId);
 
 		// Assert
 		Assert.NotNull(result);
@@ -87,7 +87,7 @@ public class MathServiceTests {
 		var operationId = "multiply_test_001";
 
 		// Act
-		var result = await _mathService.PerformCalculationAsync(request,operationId);
+		var result = await _mathService.CalculateAsync(request,operationId);
 
 		// Assert
 		Assert.NotNull(result);
@@ -114,7 +114,7 @@ public class MathServiceTests {
 		var operationId = "divide_test_001";
 
 		// Act
-		var result = await _mathService.PerformCalculationAsync(request,operationId);
+		var result = await _mathService.CalculateAsync(request,operationId);
 
 		// Assert
 		Assert.NotNull(result);
@@ -138,7 +138,7 @@ public class MathServiceTests {
 		var operationId = "divide_by_zero_test_001";
 
 		// Act
-		var result = await _mathService.PerformCalculationAsync(request,operationId);
+		var result = await _mathService.CalculateAsync(request,operationId);
 
 		// Assert
 		Assert.NotNull(result);
@@ -153,7 +153,7 @@ public class MathServiceTests {
 		var operationId = "null_request_test_001";
 
 		// Act & Assert
-		await Assert.ThrowsAsync<NullReferenceException>(() => _mathService.PerformCalculationAsync(null!,operationId));
+		await Assert.ThrowsAsync<NullReferenceException>(() => _mathService.CalculateAsync(null!,operationId));
 	}
 
 	[Theory]
@@ -170,7 +170,7 @@ public class MathServiceTests {
 		var operationId = "null_values_test_001";
 
 		// Act
-		var result = await _mathService.PerformCalculationAsync(request,operationId);
+		var result = await _mathService.CalculateAsync(request,operationId);
 
 		// Assert
 		Assert.NotNull(result);
@@ -191,7 +191,7 @@ public class MathServiceTests {
 		var operationId = "invalid_operation_test_001";
 
 		// Act
-		var result = await _mathService.PerformCalculationAsync(request,operationId);
+		var result = await _mathService.CalculateAsync(request,operationId);
 
 		// Assert
 		Assert.NotNull(result);
@@ -218,7 +218,7 @@ public class MathServiceTests {
 		var operationId = "logging_test_001";
 
 		// Act
-		await _mathService.PerformCalculationAsync(request,operationId);
+		await _mathService.CalculateAsync(request,operationId);
 
 		// Assert - Verify that information logging was called
 		_mockLogger.Verify(logger => logger.Log(LogLevel.Information,
@@ -240,7 +240,7 @@ public class MathServiceTests {
 		var operationId = "divide_by_zero_logging_test";
 
 		// Act
-		await _mathService.PerformCalculationAsync(request,operationId);
+		await _mathService.CalculateAsync(request,operationId);
 
 		// Assert - Verify that warning logging was called for division by zero
 		_mockLogger.Verify(logger => logger.Log(LogLevel.Warning,
@@ -266,7 +266,7 @@ public class MathServiceTests {
 		var operationId = "extreme_values_test_001";
 
 		// Act
-		var result = await _mathService.PerformCalculationAsync(request,operationId);
+		var result = await _mathService.CalculateAsync(request,operationId);
 
 		// Assert
 		Assert.NotNull(result);
@@ -290,7 +290,7 @@ public class MathServiceTests {
 		var operationId = "precision_test_001";
 
 		// Act
-		var result = await _mathService.PerformCalculationAsync(request,operationId);
+		var result = await _mathService.CalculateAsync(request,operationId);
 
 		// Assert
 		Assert.NotNull(result);
@@ -326,7 +326,7 @@ public class MathServiceTests {
 		};
 
 		// Act
-		var tasks = requests.Select((request,index) => _mathService.PerformCalculationAsync(request,$"concurrent_test_{index}")).ToArray();
+		var tasks = requests.Select((request,index) => _mathService.CalculateAsync(request,$"concurrent_test_{index}")).ToArray();
 		var results = await Task.WhenAll(tasks);
 
 		// Assert

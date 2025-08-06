@@ -9,16 +9,16 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
 namespace IO.Swagger.Services.Math {
-	public interface ICalculatorWorkflowService {
+	public interface ICalculatorBusinessLogicService {
 		Task<MathResponse> ExecuteCalculationWorkflowAsync(MathRequest request, string operationId);
 	}
 
-	public class CalculatorWorkflowService(IMathService mathService,
-										   ILogger<CalculatorWorkflowService> logger,
+	public class CalculatorBusinessLogicService(IMathService mathService,
+										   ILogger<CalculatorBusinessLogicService> logger,
 										   RedisService redisServiceIntegration,
 										   IConfiguration configuration,
 										   IKafkaProducerService kafkaProducer,
-										   IHttpContextAccessor httpContextAccessor) : ICalculatorWorkflowService {
+										   IHttpContextAccessor httpContextAccessor) : ICalculatorBusinessLogicService {
 
 		private const int DefaultCacheSeconds = 30;
 
@@ -88,7 +88,7 @@ namespace IO.Swagger.Services.Math {
 				}
 
 				// Delegate to MathService for calculation
-				var result = await mathService.PerformCalculationAsync(request, operationId);
+				var result = await mathService.CalculateAsync(request, operationId);
 				
 				// Cache successful results
 				if (result.Result.HasValue) {

@@ -84,6 +84,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "2167495f-9c81-488b-b8ee-bdfc4c95efd8.executor": "Debug",
     "255b19fb-b86e-4a5f-a712-6623a8e99b2c.executor": "Debug",
     "28c64f5e-d1b5-461d-bf18-7a7fd0e153ec.executor": "Debug",
     "291dc683-eb87-4374-b2e8-7aeb836c970c.executor": "Debug",
@@ -95,6 +96,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "XThreadsFramesViewSplitterKey": "1.4796748",
     "a31e2ef4-4454-47c4-afb3-a4ba332559b3.executor": "Debug",
     "a871019c-3237-4038-8e9e-21f99e8d2171.executor": "Debug",
     "af14eea5-6476-44e2-a8ee-97320e77c220.executor": "Debug",
@@ -231,7 +233,7 @@
       <workItem from="1754352306641" duration="412000" />
       <workItem from="1754352764386" duration="928000" />
       <workItem from="1754378736895" duration="25173000" />
-      <workItem from="1754494405266" duration="816000" />
+      <workItem from="1754494405266" duration="3250000" />
     </task>
     <task id="LOCAL-00001" summary="wip">
       <option name="closed" value="true" />
@@ -369,7 +371,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754492953384</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="wip">
+      <option name="closed" value="true" />
+      <created>1754495259153</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1754495259153</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -402,9 +412,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="wip" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="wip" />
+    <option name="LAST_COMMIT_MESSAGE" value="wip" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -435,21 +445,9 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/src/IO.Swagger.Tests/Integration/ComprehensiveIntegrationTests.cs</url>
-          <line>293</line>
+          <line>288</line>
           <properties documentPath="C:\Dev\BM\src\IO.Swagger.Tests\ComprehensiveIntegrationTests.cs" containingFunctionPresentation="Method 'GetWebResourceRootReturnsOkStatusCode'" />
           <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/src/IO.Swagger.Tests/Integration/ComprehensiveIntegrationTests.cs</url>
-          <line>309</line>
-          <properties documentPath="C:\Dev\BM\src\IO.Swagger.Tests\ComprehensiveIntegrationTests.cs" containingFunctionPresentation="Method 'GetWebResourceRootReturnsOkStatusCode'" />
-          <option name="timeStamp" value="51" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/src/IO.Swagger.Tests/Integration/MathApiIntegrationTests.cs</url>
-          <line>93</line>
-          <properties documentPath="C:\Dev\BM\src\IO.Swagger.Tests\MathApiIntegrationTests.cs" containingFunctionPresentation="Method 'MathApi_ValidDivision_ReturnsSuccessResponse'" />
-          <option name="timeStamp" value="78" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

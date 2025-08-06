@@ -13,18 +13,19 @@ public class KafkaConsumerService : BackgroundService {
 	private readonly ILogger<KafkaConsumerService> _logger;
 	private readonly IServiceProvider _serviceProvider;
 	private readonly string[] _topics;
+	private readonly string _bootstrapServers;
 
 	public KafkaConsumerService(IConfiguration configuration,
 								ILogger<KafkaConsumerService> logger,
 								IServiceProvider serviceProvider) {
 		_logger = logger;
-		return;
 		_serviceProvider = serviceProvider;
 		var calculationStartedTopic = configuration.GetValue<string>("Kafka:Topics:CalculationStarted") ?? "calculation-started";
 		var calculationCompletedTopic = configuration.GetValue<string>("Kafka:Topics:CalculationCompleted") ?? "calculation-completed";
 		_topics = [calculationStartedTopic,calculationCompletedTopic];
+		_bootstrapServers = configuration.GetConnectionString("kafka") ?? "localhost:9092";
 		var config = new ConsumerConfig {
-			BootstrapServers = configuration.GetConnectionString("kafka") ?? "localhost:9092",
+			BootstrapServers = _bootstrapServers,
 			GroupId = "io-swagger-consumer-group",
 			ClientId = "io-swagger-consumer",
 			AutoOffsetReset = AutoOffsetReset.Earliest,
@@ -50,21 +51,42 @@ public class KafkaConsumerService : BackgroundService {
 	}
 
 	protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
-		try {
+		_logger.LogInformation("Starting Kafka consumer service...");
+		
+		// Wait for Kafka broker to be ready before doing anything
+		await WaitForKafkaBrokerAsync(stoppingToken);
+		
+		if (stoppingToken.IsCancellationRequested) {
+			_logger.LogInformation("Kafka consumer service cancelled during startup");
 			return;
+		}
+		
+		try {
 			_consumer.Subscribe(_topics);
 			_logger.LogInformation("Kafka consumer started. Subscribed to topics: {Topics}",string.Join(", ",_topics));
+			
 			while (!stoppingToken.IsCancellationRequested) {
 				try {
-					var consumeResult = _consumer.Consume(stoppingToken);
+					var consumeResult = _consumer.Consume(TimeSpan.FromSeconds(1));
 					if (consumeResult?.Message != null) {
 						await ProcessMessageAsync(consumeResult,stoppingToken);
 						_consumer.Commit(consumeResult);
 						_consumer.StoreOffset(consumeResult);
 					}
 				}
+				catch (ConsumeException ex) when (ex.Error.Code == ErrorCode.UnknownTopicOrPart) {
+					_logger.LogInformation("Topics not yet available, waiting for producer to create them: {Error}", ex.Error.Reason);
+					await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
+				}
+				catch (ConsumeException ex) when (ex.Error.Code == ErrorCode.BrokerNotAvailable || 
+												   ex.Error.Code == ErrorCode.NetworkException ||
+												   ex.Error.Code == ErrorCode.Local_AllBrokersDown) {
+					_logger.LogWarning("Kafka broker connectivity issue, retrying in 10 seconds: {Error}", ex.Error.Reason);
+					await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
+				}
 				catch (ConsumeException ex) {
 					_logger.LogError(ex,"Kafka consume error: {Error}",ex.Error.Reason);
+					await Task.Delay(TimeSpan.FromSeconds(2), stoppingToken);
 				}
 				catch (OperationCanceledException) {
 					// Expected when cancellation is requested
@@ -72,7 +94,6 @@ public class KafkaConsumerService : BackgroundService {
 				}
 				catch (Exception ex) {
 					_logger.LogError(ex,"Unexpected error in Kafka consumer");
-					// Don't break the loop for unexpected errors, just log and continue
 					await Task.Delay(TimeSpan.FromSeconds(5),stoppingToken);
 				}
 			}
@@ -92,8 +113,35 @@ public class KafkaConsumerService : BackgroundService {
 		}
 	}
 
+	private async Task WaitForKafkaBrokerAsync(CancellationToken cancellationToken) {
+		var retryCount = 0;
+		const int maxRetries = 30; // 30 seconds max wait
+		
+		while (retryCount < maxRetries && !cancellationToken.IsCancellationRequested) {
+			try {
+				using var adminClient = new AdminClientBuilder(new AdminClientConfig {
+					BootstrapServers = _bootstrapServers
+				}).Build();
+				
+				var metadata = adminClient.GetMetadata(TimeSpan.FromSeconds(5));
+				if (metadata.Brokers.Count > 0) {
+					_logger.LogInformation("Kafka broker is ready. Found {BrokerCount} broker(s)", metadata.Brokers.Count);
+					return;
+				}
+			}
+			catch (Exception ex) {
+				_logger.LogDebug("Waiting for Kafka broker to be ready (attempt {Attempt}/{MaxAttempts}): {Error}", 
+					retryCount + 1, maxRetries, ex.Message);
+			}
+			
+			retryCount++;
+			await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+		}
+		
+		_logger.LogWarning("Kafka broker not ready after {MaxRetries} seconds, continuing anyway", maxRetries);
+	}
+
 	private async Task ProcessMessageAsync(ConsumeResult<string,string> result,CancellationToken cancellationToken) {
-		return;
 		try {
 			var eventType = GetEventTypeFromHeaders(result.Message.Headers);
 			_logger.LogDebug("Processing Kafka message. Topic: {Topic}, Key: {Key}, EventType: {EventType}",
@@ -127,7 +175,6 @@ public class KafkaConsumerService : BackgroundService {
 	}
 
 	private async Task ProcessCalculationStartedEvent(string messageValue,CancellationToken cancellationToken) {
-		return;
 		try {
 			var calculationEvent = JsonSerializer.Deserialize<CalculationStartedEvent>(messageValue);
 			if (calculationEvent == null)
@@ -154,7 +201,6 @@ public class KafkaConsumerService : BackgroundService {
 	}
 
 	private async Task ProcessCalculationCompletedEvent(string messageValue,CancellationToken cancellationToken) {
-		return;
 		try {
 			var calculationEvent = JsonSerializer.Deserialize<CalculationCompletedEvent>(messageValue);
 			if (calculationEvent == null)

@@ -21,4 +21,11 @@ var api = builder.AddProject<Projects.IO_Swagger>("io-swagger")
                  .WithReference(redis)
                  .WithReference(kafka);
 
-builder.Build().Run();
+try
+{
+    await builder.Build().RunAsync();
+}
+catch (TaskCanceledException)
+{
+    // Expected during testing scenarios when the application is shut down
+}

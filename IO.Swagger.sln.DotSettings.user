@@ -6,16 +6,17 @@
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AMvcServiceCollectionExtensions_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FUsers_003Fadamz_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003F533e65d7e1d3ab33a791a6bb1a1ecf0d06cc9b38761b9465fc6c2554a77ecb6_003FMvcServiceCollectionExtensions_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003AOutputCacheAttribute_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FUsers_003Fadamz_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003Ff5a5b3e34b389386137fb632cd2f622da561d4d28599c3362f587bf7544d2cd_003FOutputCacheAttribute_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ASecuritySchemeType_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FUsers_003Fadamz_003FAppData_003FRoaming_003FJetBrains_003FRider2025_002E1_003Fresharper_002Dhost_003FSourcesCache_003F29898ce74e3763a786ac1bd9a6db2152e1af75769440b1e53b9cbdf1dda1bd99_003FSecuritySchemeType_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2167495f_002D9c81_002D488b_002Db8ee_002Dbdfc4c95efd8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AuthApi_ValidTokenRequest_ReturnsValidToken" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2167495f_002D9c81_002D488b_002Db8ee_002Dbdfc4c95efd8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="AuthApi_ValidTokenRequest_ReturnsValidToken" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::C3D4E5F6-7890-1234-CDEF-345678901234::net9.0::IO.Swagger.Tests.AuthenticationIntegrationTests.AuthApi_ValidTokenRequest_ReturnsValidToken&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::C3D4E5F6-7890-1234-CDEF-345678901234::net9.0::IO.Swagger.Tests.Integration.MockoonIntegrationTests.MockoonService_CallMetaAddEndpoint_ReturnsExpectedResult&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=af14eea5_002D6476_002D44e2_002Da8ee_002D97320e77c220/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="PerformCalculationAsync_DivideByZero_ReturnsError" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=af14eea5_002D6476_002D44e2_002Da8ee_002D97320e77c220/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PerformCalculationAsync_DivideByZero_ReturnsError" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::C3D4E5F6-7890-1234-CDEF-345678901234::net9.0::IO.Swagger.Tests.Unit.MathServiceTests.PerformCalculationAsync_DivideByZero_ReturnsError&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::C3D4E5F6-7890-1234-CDEF-345678901234::net9.0::IO.Swagger.Tests.Unit.MathServiceTests.PerformCalculationAsync_NullValues_ReturnsError&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::C3D4E5F6-7890-1234-CDEF-345678901234::net9.0::IO.Swagger.Tests.Unit.AuthenticationServiceTests.ValidateToken_InvalidToken_ReturnsFalse&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::C3D4E5F6-7890-1234-CDEF-345678901234::net9.0::IO.Swagger.Tests.Integration.MockoonIntegrationTests.MockoonService_CallMetaAddEndpoint_ReturnsExpectedResult&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	

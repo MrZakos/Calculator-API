@@ -221,7 +221,7 @@ Each log entry includes:
 }
 ```
 
-## 🚀 Process
+## 🚀 Work Process
 
 - Created API using swaggerhub with HaloAI and download as .NET Core 3/5 project
 - Upgrade to .NET 9 (latest versions of libraries)

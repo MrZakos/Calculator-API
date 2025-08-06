@@ -1,8 +1,8 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
 // Enables the Docker Compose publisher
-builder.AddDockerComposeEnvironment("calculator-docker-compose-app") 
-	    .WithDashboard(dashboard => dashboard.WithHostPort(8080));; 
+builder.AddDockerComposeEnvironment("docker-compose-app") 
+	   .WithDashboard(dashboard => dashboard.WithHostPort(8080));
 
 // Add Redis with RedisInsight
 var redis = builder.AddRedis("redis")

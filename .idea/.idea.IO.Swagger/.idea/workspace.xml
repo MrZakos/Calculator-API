@@ -16,6 +16,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.IO.Swagger/.idea/copilotDiffState.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IO.Swagger/.idea/copilotDiffState.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.IO.Swagger/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IO.Swagger/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IO.Swagger.AppHost/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/IO.Swagger.AppHost/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,14 +43,10 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/IO.Swagger.AppHost/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Dev/BM/src/IO.Swagger.AppHost/Program.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/IO.Swagger.Models/Token/TokenRequest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/IO.Swagger.Models/Token/TokenResponse.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/IO.Swagger.Services/Extensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Dev/BM/src/IO.Swagger.Services/Math/CalculatorWorkflowService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Dev/BM/src/IO.Swagger.Tests/Integration/AuthenticationIntegrationTests.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Dev/BM/src/IO.Swagger/Middleware/TokenExpirationMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Dev/BM/src/IO.Swagger/Program.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Dev/BM/src/IO.Swagger/appsettings.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/416b2cc2f7f740b183f750b0e028d5451de920/c1/49fb37d1/ControllerBase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/eff136e5b45b4b019e8dbf20ece090d814910/b2/855ff2f3/IActionResult.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/17194ebcd5c9ec91b768ec9b65ee2651fd54ab25fd22b3f328740d87fd188ee/AuthenticationServiceCollectionExtensions.cs" root0="FORCE_HIGHLIGHTING" />
@@ -92,7 +89,7 @@
     "8ccaba62-a51b-4040-a4c6-3edc8d85bc0c.executor": "Debug",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Aspire Host.IO.Swagger.AppHost.executor": "Debug",
-    "Docker.IO.Swagger/Dockerfile.executor": "Debug",
+    "Docker.IO.Swagger/Dockerfile.executor": "Run",
     "Docker.docker-compose.yaml.io-swagger: Compose Deployment.executor": "Run",
     "Docker.docker-compose.yaml: Compose Deployment.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
@@ -268,7 +265,7 @@
       <workItem from="1754378736895" duration="25173000" />
       <workItem from="1754494405266" duration="6972000" />
       <workItem from="1754503594717" duration="178000" />
-      <workItem from="1754503819228" duration="4670000" />
+      <workItem from="1754503819228" duration="7153000" />
     </task>
     <task id="LOCAL-00001" summary="wip">
       <option name="closed" value="true" />
@@ -438,7 +435,39 @@
       <option name="project" value="LOCAL" />
       <updated>1754507786884</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="wip">
+      <option name="closed" value="true" />
+      <created>1754509081736</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1754509081736</updated>
+    </task>
+    <task id="LOCAL-00023" summary=".">
+      <option name="closed" value="true" />
+      <created>1754510185336</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1754510185336</updated>
+    </task>
+    <task id="LOCAL-00024" summary=".">
+      <option name="closed" value="true" />
+      <created>1754510436294</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1754510436294</updated>
+    </task>
+    <task id="LOCAL-00025" summary=".">
+      <option name="closed" value="true" />
+      <created>1754511067670</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1754511067670</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -471,9 +500,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="." />
     <MESSAGE value="wip" />
-    <option name="LAST_COMMIT_MESSAGE" value="wip" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

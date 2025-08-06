@@ -13,14 +13,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7d6a47fe-84da-416b-8d02-ada2a869ac99" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.IO.Swagger/.idea/copilotDiffState.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IO.Swagger/.idea/copilotDiffState.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.IO.Swagger/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.IO.Swagger/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IO.Swagger.AppHost/IO.Swagger.AppHost.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/IO.Swagger.AppHost/IO.Swagger.AppHost.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/IO.Swagger.AppHost/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/IO.Swagger.AppHost/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/IO.Swagger.Tests/Integration/MockoonIntegrationTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/IO.Swagger.Tests/Integration/MockoonIntegrationTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/IO.Swagger.Services/Math/CalculatorWorkflowService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/IO.Swagger.Services/Math/CalculatorBusinessLogicService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/IO.Swagger/IO.Swagger.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/IO.Swagger/IO.Swagger.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,12 +98,12 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Aspire Host.IO.Swagger.AppHost.executor": "Debug",
     "Docker.IO.Swagger/Dockerfile.executor": "Debug",
-    "Docker.docker-compose.yaml: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yaml.io-swagger: Compose Deployment.executor": "Run",
+    "Docker.docker-compose.yaml: Compose Deployment.executor": "Debug",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "XThreadsFramesViewSplitterKey": "1.4795641",
     "a31e2ef4-4454-47c4-afb3-a4ba332559b3.executor": "Debug",
     "a871019c-3237-4038-8e9e-21f99e8d2171.executor": "Debug",
     "af14eea5-6476-44e2-a8ee-97320e77c220.executor": "Debug",
@@ -120,7 +119,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Docker.docker-compose.yaml: Compose Deployment">
+  <component name="RunManager" selected="Aspire Host.IO.Swagger.AppHost">
     <configuration name="IO.Swagger.AppHost" type="AspireHostConfiguration" factoryName="Aspire Host" activateToolWindowBeforeRun="false" temporary="true">
       <option name="PROJECT_FILE_PATH" value="$PROJECT_DIR$/src/IO.Swagger.AppHost/IO.Swagger.AppHost.csproj" />
       <option name="PROJECT_TFM" value="net9.0" />
@@ -222,18 +221,34 @@
       <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
       <method v="2" />
     </configuration>
+    <configuration name="docker-compose.yaml.io-swagger: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="io-swagger" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue=".NET Launch Settings Profile.IO.Swagger: IO.Swagger.AppHost" />
       <item itemvalue=".NET Launch Settings Profile.IO.Swagger: IIS Express" />
       <item itemvalue=".NET Launch Settings Profile.IO.Swagger: web" />
       <item itemvalue="Aspire Host.IO.Swagger.AppHost" />
       <item itemvalue="Docker.IO.Swagger/Dockerfile" />
+      <item itemvalue="Docker.docker-compose.yaml.io-swagger: Compose Deployment" />
       <item itemvalue="Docker.docker-compose.yaml: Compose Deployment" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.docker-compose.yaml: Compose Deployment" />
         <item itemvalue="Aspire Host.IO.Swagger.AppHost" />
+        <item itemvalue="Docker.docker-compose.yaml: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.yaml.io-swagger: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -258,7 +273,7 @@
       <workItem from="1754378736895" duration="25173000" />
       <workItem from="1754494405266" duration="6972000" />
       <workItem from="1754503594717" duration="178000" />
-      <workItem from="1754503819228" duration="1134000" />
+      <workItem from="1754503819228" duration="3677000" />
     </task>
     <task id="LOCAL-00001" summary="wip">
       <option name="closed" value="true" />
@@ -404,7 +419,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754495259153</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="wip">
+      <option name="closed" value="true" />
+      <created>1754505009478</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1754505009478</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

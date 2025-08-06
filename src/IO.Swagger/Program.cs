@@ -13,8 +13,34 @@ using IO.Swagger.Services.Math;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using Serilog.Events;
+using Serilog.Formatting.Compact;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog for robust logging
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+    .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information)
+    .MinimumLevel.Override("System", LogEventLevel.Warning)
+    .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
+    .Enrich.FromLogContext()
+    .Enrich.WithProperty("ApplicationName", "IO.Swagger.API")
+    .Enrich.WithProperty("Environment", builder.Environment.EnvironmentName)
+    .WriteTo.Console(new CompactJsonFormatter())
+    .WriteTo.File(
+        new CompactJsonFormatter(),
+        "logs/io-swagger-.log",
+        rollingInterval: RollingInterval.Day,
+        retainedFileCountLimit: 30,
+        fileSizeLimitBytes: 100 * 1024 * 1024, // 100MB
+        rollOnFileSizeLimit: true)
+    .CreateLogger();
+
+// Use Serilog as the logging provider
+builder.Host.UseSerilog();
 
 // Register Aspire ServiceDefaults & other services
 builder.AddServiceDefaults();
@@ -102,6 +128,12 @@ builder.Services.AddSwaggerGen(c => {
 	c.OperationFilter<GeneratePathParamsValidationFilter>();
 });
 var app = builder.Build();
+
+// Add comprehensive logging middleware pipeline
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+app.UseMiddleware<RequestResponseLoggingMiddleware>();
+app.UseMiddleware<PerformanceMonitoringMiddleware>();
+
 if (app.Environment.IsDevelopment()) {
 	app.UseDeveloperExceptionPage();
 }
@@ -109,6 +141,11 @@ else {
 	app.UseExceptionHandler("/Error");
 	app.UseHsts();
 }
+
+// Log application startup
+Log.Information("Starting IO.Swagger API application in {Environment} environment", 
+    app.Environment.EnvironmentName);
+
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseOutputCache();

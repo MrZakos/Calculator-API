@@ -23,6 +23,7 @@ This project demonstrates a modern, scalable calculator API that includes:
 - **xUnit** - Testing framework with comprehensive test coverage
 - **Docker** - Containerization support
 - **Mockoon** - API mocking for testing
+- **Serilog** - Structured logging with JSON formatting and file rotation
 
 ## 🚀 API Endpoints
 
@@ -61,6 +62,7 @@ The project includes a complete Postman collection for interactive API testing l
 - **Redis Integration Tests** - Real Redis caching behavior
 - **Authentication Integration Tests** - Complete auth workflow testing
 - **Comprehensive Integration Tests** - Full workflow including Kafka events
+- **Mockoon Integration Tests** - External service mocking and API endpoint testing
 
 ### Test Features
 - **Real Service Dependencies** - Tests use actual Redis and application host
@@ -116,15 +118,67 @@ The API publishes Kafka events for:
 
 Events include detailed metadata for analytics, monitoring, and audit trails.
 
+## 📝 Robust Logging with Serilog
+
+The application implements comprehensive structured logging using Serilog with the following features:
+
+### Logging Architecture
+- **Structured JSON Logging** - All logs use JSON format for better parsing and analysis
+- **Correlation ID Tracking** - Every request gets a unique ID that follows it through all components
+- **Multi-Sink Output** - Logs simultaneously to console and rotating files
+- **Performance Monitoring** - Automatic detection of slow requests (>1 second)
+- **Global Exception Handling** - Centralized error logging with context preservation
+
+### Middleware Components
+- **RequestResponseLoggingMiddleware** - Logs all HTTP requests/responses with full context
+- **GlobalExceptionHandlingMiddleware** - Handles unhandled exceptions with structured error responses
+- **PerformanceMonitoringMiddleware** - Monitors execution time and memory usage per request
+
+### Log Levels and Filtering
+```
+Information: Application events, request/response logging
+Warning: Slow requests, business logic warnings, non-critical errors  
+Error: Exceptions, failures, critical application errors
+Debug: Detailed performance metrics (development only)
+```
+
+### File Management
+- **Location**: `logs/io-swagger-YYYY-MM-DD.log`
+- **Rotation**: Daily log files with 30-day retention
+- **Size Limit**: 100MB per file with automatic rollover
+- **Format**: Compact JSON for efficient storage and parsing
+
+### Log Context Enrichment
+Each log entry includes:
+- Correlation ID for request tracing
+- Application name and environment
+- Request path, method, and user agent
+- Remote IP address and response times
+- Memory usage and performance metrics
+
+### Sample Log Output
+```json
+{
+  "timestamp": "2025-08-06T10:30:00.123Z",
+  "level": "Information", 
+  "message": "Incoming request: POST /api/math",
+  "correlationId": "abc123-def456",
+  "requestMethod": "POST",
+  "requestPath": "/api/math", 
+  "applicationName": "IO.Swagger.API",
+  "environment": "Development"
+}
+```
+
 ## 🚀 Process
 
 - Created API using swaggerhub with HaloAI and download as .NET Core 3/5 project
 - Upgrade to .NET 9 (latest versions of libraries)
-- Add Aspire to allow for local orchestration with ease of use for Redis, Kafka, and Mockoon docker integration, allow there are no connections strings in appsettings
+- Add Aspire to allow for local orchestration with ease of use for Redis, Kafka, and Mockoon docker integration, no connections strings expose in appsettings
 - Solutions structure refactored to separate concerns
 - Set JWT authentication + TokenExpirationMiddleware
 - Refactor to use System.Text.Json
-- Used GitHub Copilot (Claude Sonnet 4) to refactor code, add tests and documentation (and whatever else it did)
+- Used GitHub Copilot (Claude Sonnet 4) to refactor code, add tests and documentation
 
 ## 📝 Configuration
 

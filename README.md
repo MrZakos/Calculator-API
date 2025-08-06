@@ -115,7 +115,9 @@ The project includes a complete Postman collection for interactive API testing l
 
 ### Postman + Redis demo
 
-[![Postman + Redis Demo](https://img.youtube.com/vi/n5V-YkyUEtA/0.jpg)](https://youtu.be/n5V-YkyUEtA)
+<a href="https://youtu.be/n5V-YkyUEtA" target="_blank">
+  <img src="https://img.youtube.com/vi/n5V-YkyUEtA/0.jpg" alt="Postman + Redis Demo" />
+</a>
 
 ### Unit Tests
 - **MathService Tests** - Core mathematical operation logic

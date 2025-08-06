@@ -224,9 +224,9 @@ Each log entry includes:
 ## 🚀 Work Process
 
 - Created API using swaggerhub with HaloAI and download as .NET Core 3/5 project
-- Upgrade to .NET 9 (latest versions of libraries)
-- Add Aspire to allow for local orchestration with ease of use for Redis, Kafka, and Mockoon docker integration, no connections strings expose in appsettings
-- Solutions structure refactored to separate concerns
+- Upgrade to .NET 9, solutions structure refactored to separate concerns, modernize Startup.cs and Program.cs files
+- Implemented JWT authentication with token generation and validation
+- Add Aspire to allow for local orchestration with ease for local development with the of use for Redis, Kafka, and Mockoon by just starting the project, no connections strings expose
 - Set JWT authentication + TokenExpirationMiddleware
 - Refactor to use System.Text.Json
 - Used GitHub Copilot (Claude Sonnet 4) to refactor code, add tests and documentation

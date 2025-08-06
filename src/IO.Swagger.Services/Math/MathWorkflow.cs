@@ -9,20 +9,20 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 
 namespace IO.Swagger.Services.Math {
-	public interface ICalculatorBusinessLogicService {
-		Task<MathResponse> ExecuteCalculationWorkflowAsync(MathRequest request, string operationId);
+	public interface IMathWorkflow {
+		Task<MathResponse> ExecuteMathWorkflowAsync(MathRequest? request, string? operationId);
 	}
 
-	public class CalculatorBusinessLogicService(IMathService mathService,
-										   ILogger<CalculatorBusinessLogicService> logger,
+	public class MathWorkflow(IMathService mathService,
+										   ILogger<MathWorkflow> logger,
 										   RedisService redisServiceIntegration,
 										   IConfiguration configuration,
 										   IKafkaProducerService kafkaProducer,
-										   IHttpContextAccessor httpContextAccessor) : ICalculatorBusinessLogicService {
+										   IHttpContextAccessor httpContextAccessor) : IMathWorkflow {
 
 		private const int DefaultCacheSeconds = 30;
 
-		public async Task<MathResponse> ExecuteCalculationWorkflowAsync(MathRequest? request, string? operationId) {
+		public async Task<MathResponse> ExecuteMathWorkflowAsync(MathRequest? request, string? operationId) {
 			var stopwatch = Stopwatch.StartNew();
 			var cacheHit = false;
 			var userId = GetCurrentUserId();
@@ -30,38 +30,14 @@ namespace IO.Swagger.Services.Math {
 			logger.LogInformation("Starting calculation workflow for operation ID: {OperationId}", operationId);
 			
 			try {
-				// Validate input
-				if (request is null || operationId is null) {
-					logger.LogWarning("Null request received for operation ID: {OperationId}", operationId);
+				// Comprehensive model validation
+				var validationResult = ValidateRequest(request, operationId);
+				if (!validationResult.IsValid) {
+					logger.LogWarning("Validation failed for operation ID: {OperationId}. Error: {Error}", 
+									  operationId, validationResult.ErrorMessage);
 					return new MathResponse {
 						Success = false,
-						Error = "Request cannot be null"
-					};
-				}
-
-				if(Enum.TryParse<MathOperationType>(operationId, out _) == false) {
-					logger.LogWarning("Invalid operation type received for operation ID: {OperationId}. Operation: {Operation}",
-									  operationId, request.Operation);
-					return new MathResponse {
-						Success = false,
-						Error = "Invalid operation type"
-					};
-				}
-
-				if (!request.X.HasValue || !request.Y.HasValue) {
-					logger.LogWarning("Invalid operands received for operation ID: {OperationId}. X: {X}, Y: {Y}",
-									  operationId, request.X, request.Y);
-					return new MathResponse {
-						Success = false,
-						Error = "Both X and Y operands are required"
-					};
-				}
-
-				if (!request.Operation.HasValue) {
-					logger.LogWarning("No operation specified for operation ID: {OperationId}", operationId);
-					return new MathResponse {
-						Success = false,
-						Error = "Operation type is required"
+						Error = validationResult.ErrorMessage
 					};
 				}
 
@@ -181,6 +157,51 @@ namespace IO.Swagger.Services.Math {
 				logger.LogWarning(ex, "Failed to get current user ID");
 				return null;
 			}
+		}
+
+		private (bool IsValid, string ErrorMessage) ValidateRequest(MathRequest? request, string? operationId) {
+			// Null checks
+			if (request == null) {
+				return (false, "Request cannot be null");
+			}
+
+			if (string.IsNullOrWhiteSpace(operationId)) {
+				return (false, "Operation ID is required and cannot be empty");
+			}
+
+			// Validate operation ID format (if needed)
+			if (Enum.TryParse<MathOperationType>(operationId, out _) == false) {
+				return (false, "Invalid operation type in operation ID");
+			}
+
+			// Required field validation (matching [Required] attributes from MathRequest)
+			if (!request.X.HasValue) {
+				return (false, "The X field is required");
+			}
+
+			if (!request.Y.HasValue) {
+				return (false, "The Y field is required");
+			}
+
+			if (!request.Operation.HasValue) {
+				return (false, "The Operation field is required");
+			}
+
+			// Additional business validation
+			if (request.Operation == MathOperationType.Divide && request.Y == 0) {
+				return (false, "Division by zero is not allowed");
+			}
+
+			// Validate numeric ranges if needed
+			if (double.IsNaN(request.X.Value) || double.IsInfinity(request.X.Value)) {
+				return (false, "X must be a valid number");
+			}
+
+			if (double.IsNaN(request.Y.Value) || double.IsInfinity(request.Y.Value)) {
+				return (false, "Y must be a valid number");
+			}
+
+			return (true, string.Empty);
 		}
 	}
 }

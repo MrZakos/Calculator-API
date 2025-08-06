@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Authorization;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using IO.Swagger.Attributes;
 using IO.Swagger.Models;
 using IO.Swagger.Models.Core;
 using IO.Swagger.Models.Math;
@@ -27,7 +26,7 @@ namespace IO.Swagger.Controllers {
 	/// </summary>
 	[ApiController]
 	[Authorize] // Require JWT Bearer authentication for all endpoints
-	public sealed class DefaultApiController(ICalculatorBusinessLogicService calculatorBusinessLogicService,ILogger<DefaultApiController> logger) : ControllerBase {
+	public sealed class DefaultApiController(IMathWorkflow mathWorkflow,ILogger<DefaultApiController> logger) : ControllerBase {
 
 		/// <summary>
 		/// Perform mathematical operations
@@ -40,7 +39,6 @@ namespace IO.Swagger.Controllers {
 		/// <response code="401">Unauthorized - Invalid or missing JWT token</response>
 		[HttpPost]
 		[Route("/api/math")]
-		[ValidateModelState]
 		[SwaggerOperation("MathPost")]
 		[SwaggerResponse(statusCode:200,type:typeof(MathResponse),description:"Successful operation")]
 		[SwaggerResponse(statusCode:400,type:typeof(BaseResponse),description:"Bad Request")]
@@ -50,15 +48,14 @@ namespace IO.Swagger.Controllers {
 		public async Task<IActionResult> MathPost([FromBody] MathRequest request,[FromHeader(Name = "X-ArithmeticOp-ID")] [Required] string xArithmeticOpId) {
 			try {
 				logger.LogInformation("MathPost endpoint called with operation ID: {OperationId}",xArithmeticOpId);
-				if (!ModelState.IsValid) {
-					logger.LogWarning("Invalid model state for operation ID: {OperationId}. ModelState: {@ModelState}",xArithmeticOpId,ModelState);
-					return BadRequest(ModelState);
-				}
-				var result = await calculatorBusinessLogicService.ExecuteCalculationWorkflowAsync(request,xArithmeticOpId);
+				
+				var result = await mathWorkflow.ExecuteMathWorkflowAsync(request,xArithmeticOpId);
+				
 				if (result.Success == true) {
 					logger.LogInformation("MathPost completed successfully for operation ID: {OperationId}",xArithmeticOpId);
 					return Ok(result);
 				}
+				
 				logger.LogWarning("MathPost failed for operation ID: {OperationId}. Error: {Error}",xArithmeticOpId,result.Error);
 				return BadRequest(result);
 			}

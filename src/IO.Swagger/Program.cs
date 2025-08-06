@@ -50,7 +50,7 @@ builder.Services.AddStackExchangeRedisOutputCache(options => {
 });
 builder.Services.AddOutputCache();
 builder.Services.AddSingleton<IMathService,MathService>();
-builder.Services.AddSingleton<ICalculatorBusinessLogicService,CalculatorBusinessLogicService>();
+builder.Services.AddSingleton<IMathWorkflow,MathWorkflow>();
 builder.Services.AddSingleton<RedisService>();
 builder.Services.AddScoped<IAuthenticationService,AuthenticationService>();
 // Add Kafka services
